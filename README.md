@@ -1,1 +1,1 @@
-# FLL-evicka-python
+# FLL-evicka
