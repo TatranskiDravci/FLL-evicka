@@ -78,7 +78,7 @@ def stick(spd=200, ang=0):
     sLeft.run_target(spd, ang * -1, Stop.BRAKE)
     sLeft.stop()
 
-def jaw(spd=200, ang=0):
+def claw(spd=200, ang=0):
     sRight.run_target(spd, ang, Stop.BRAKE)
     sLeft.run_target(spd, ang * -1, Stop.BRAKE)
     sRight.stop()
