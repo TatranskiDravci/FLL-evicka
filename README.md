@@ -15,10 +15,10 @@
 ```
 ## Python
 Version: ```pybricks-micropython``` <br>
-Modules:
+Packages: ```pybricks``` <br>
 Structure: 
 ```
 .
-├── evicka.py
+├── evicka.py 
 └── main.py
 ```
