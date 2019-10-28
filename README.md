@@ -9,7 +9,8 @@
 │   └── main.py
 ├── 'language name'
 │   ├── evicka.x  program containing functions
-│   └── pathn.x   prgram containing path
+│   └── pathn.x   program containing path or
+│   └── main.x    program containing every path
 └── README.md
 ```
 ## Python
