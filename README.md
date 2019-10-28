@@ -19,6 +19,6 @@ Packages: ```pybricks``` <br>
 Structure: 
 ```
 .
-├── evicka.py 
-└── main.py
+├── evicka.py  functions to simplify programming of robot 
+└── main.py    contains robot game paths
 ```
