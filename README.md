@@ -9,9 +9,16 @@
 │   └── main.py
 ├── 'language name'
 │   ├── evicka.x  program containing functions
-│   └── pathn.x   program containing path or
+│   ├── pathn.x   program containing path or
 │   └── main.x    program containing every path
 └── README.md
 ```
 ## Python
-Version: ```pybricks-micropython```
+Version: ```pybricks-micropython``` <br>
+Structure: 
+```
+.
+└── pyhon
+    ├── evicka.py
+    └── main.py
+```
