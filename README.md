@@ -29,8 +29,15 @@ Structure:
   * Put `import evicka` to file, where you wish to use this module
   
 #### This module contains:
-  * `reset()` - resets angle og gyroscope and motors
+  * `reset()` - resets angle of gyroscope and motors
   * `mov(speed, time)` - moves robot for *time* seconds in *speed* speed, uses gyroscope
   * `rot(speed, angle)` - rotates robot to *angle* degrees and in *speed* speed, uses gyroscope
   * `stick(speed, angle)` - moves *stick module* to desired height using *angle* degrees and *speed* speed
   * `claw(speed, angle)` - opens or closes *claw module* using *angle* degrees and *speed* speed
+  
+#### Where to connect sensors and motors?
+  * Left large servo motor - Port B - `left`
+  * Right large servo motor - Port C - `right`
+  * Left medium servo motor - Port D - `sLeft`
+  * Right medium servo motor - Port A - `sRight`
+  * Gyro sensor - Port S1 - `gyro`
