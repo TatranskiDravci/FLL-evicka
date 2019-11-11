@@ -29,6 +29,7 @@ Structure:
   * Put `import evicka` to file, where you wish to use this module
   
 #### This module contains:
+  * `recal()` - recalibrates gyroscope
   * `reset()` - resets angle of gyroscope and motors
   * `mov(speed, time)` - moves robot for *time* seconds in *speed* speed, uses gyroscope
   * `rot(speed, angle)` - rotates robot to *angle* degrees and in *speed* speed, uses gyroscope
