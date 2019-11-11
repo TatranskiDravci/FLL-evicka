@@ -3,6 +3,7 @@ from pybricks.ev3devices import Motor, TouchSensor, ColorSensor, GyroSensor
 from pybricks.parameters import Port, Stop, Direction, Button
 from pybricks.tools import print, wait, StopWatch
 from pybricks.robotics import DriveBase
+import time
 
 left = Motor(Port.B)
 right = Motor(Port.C)
@@ -12,6 +13,11 @@ gyro = GyroSensor(Port.S1)
 gyro.reset_angle(0)
 robot = DriveBase(left, right, 43, 180)
 watch = StopWatch()
+
+def recal():
+    gyro.speed()
+    gyro.angle()
+    time.sleep(1)
 
 def reset():
     left.reset_angle(0)

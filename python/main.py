@@ -5,6 +5,7 @@ from evicka import *
 global switch
 switch = 0
 
+recal()
 brick.sound.beep(1500, 500, 100)
 
 while(1):
@@ -38,7 +39,6 @@ while(1):
 
     if(switch == 2):
         reset()
-        pass
     if(switch == 3):
         reset()
         pass
