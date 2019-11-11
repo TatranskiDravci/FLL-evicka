@@ -1,40 +1,16 @@
+#!/usr/bin/env pybricks-micropython
+
 from pybricks import ev3brick as brick
 from pybricks.ev3devices import Motor, GyroSensor
 from pybricks.parameters import Port, Stop, Direction, Button
 from pybricks.tools import print, wait, StopWatch
 from pybricks.robotics import DriveBase
-import time
 
 left = Motor(Port.B)
 right = Motor(Port.C)
-sLeft = Motor(Port.D)
-sRight = Motor(Port.A)
 gyro = GyroSensor(Port.S1)
 gyro.reset_angle(0)
-robot = DriveBase(left, right, 43, 180)
-watch = StopWatch()
-
-def recal():
-    gyro.speed()
-    gyro.angle()
-    time.sleep(1)
-
-def reset():
-    left.reset_angle(0)
-    right.reset_angle(0)
-    sLeft.reset_angle(0)
-    sRight.reset_angle(0)
-    gyro.reset_angle(0)
-
-def mov(spd=80, tm=1):
-    watch.resume()
-    watch.reset()
-    while(1):
-        robot.drive(spd, gyro.angle() * -1)
-        if(watch.time() >= tm*1000):
-            break
-    robot.stop()
-    watch.pause()
+data = open("m_angle.data", "w")
 
 def rot(spd=40, ang=0):
     a = 1
@@ -79,13 +55,61 @@ def rot(spd=40, ang=0):
                         a = 0
                     if(gyro.angle() > ang):
                         break
-                        
-def stick(spd=200, ang=0):
-    sLeft.run_target(spd, ang * -1, Stop.BRAKE)
-    sLeft.stop()
+    data.write(str(gyro.angle()) + "\n")
 
-def claw(spd=200, ang=0):
-    sRight.run_target(spd, ang, Stop.BRAKE)
-    sLeft.run_target(spd, ang * -1, Stop.BRAKE)
-    sRight.stop()
-    sLeft.stop()
+n = 1
+for i in range(20):
+    n = 0 - n
+    rot(80, 0 * n)
+
+n = 1
+for i in range(20):
+    n = 0 - n
+    rot(80, 10 * n)
+
+rot(40, -10)
+
+n = 1
+for i in range(20):
+    n = 0 - n
+    rot(80, 20 * n)
+
+rot(40, -20)
+
+n = 1
+for i in range(20):
+    n = 0 - n
+    rot(80, 40 * n)
+
+rot(40, -40)
+
+n = 1
+for i in range(20):
+    n = 0 - n
+    rot(80, 80 * n)
+
+rot(40, -80)
+
+n = 1
+for i in range(20):
+    n = 0 - n
+    rot(80, 160 * n)
+
+rot(40, -160)
+
+n = 1
+for i in range(20):
+    n = 0 - n
+    rot(80, 320 * n)
+
+rot(40, -320)
+
+n = 1
+for i in range(20):
+    n = 0 - n
+    rot(80, 640 * n)
+
+rot(40, -640)
+
+
+
