@@ -20,25 +20,32 @@ while(1):
     
     if(switch == 1):
         reset()
-        rot(40, -16)
-        mov(140, 9)
-        rot(30, -3)
-        mov(125, 4.5)
+        recal()
+        rot(50, -15)
+        mov(300, 4)
+        rot(40, -13)
+        mov(300, 1.7)
         mov(-80, 1)
-        rot(40, 15)
-        mov(-80, 0.8)
-        rot(40, 20)
+        rot(50, 15)
         mov(-80, 1)
-        rot(40, 40)
+        rot(50, 20)
+        mov(-80, 1)
+        rot(50, 40)
         mov(80, 1)
-        rot(40, 170)
+        rot(60, 170)
         mov(80, 2.8)
         claw(200, 200)
         mov(-80, 3)
         claw(200, 10)
+        rot(80, 75)
+        mov(300, 4)
 
     if(switch == 2):
         reset()
+        mov_n(200, 1.5)
+        rot(80, 90)
+        mov_n(200, 1.5)
+
     if(switch == 3):
         reset()
         pass

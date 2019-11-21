@@ -5,6 +5,7 @@ from pybricks.ev3devices import Motor, GyroSensor
 from pybricks.parameters import Port, Stop, Direction, Button
 from pybricks.tools import print, wait, StopWatch
 from pybricks.robotics import DriveBase
+import time
 
 left = Motor(Port.B)
 right = Motor(Port.C)
@@ -13,103 +14,47 @@ gyro.reset_angle(0)
 data = open("m_angle.data", "w")
 
 def rot(spd=40, ang=0):
-    a = 1
-    if(ang > 0):
-        while(a == 1):
-            if(gyro.angle == ang):
-                left.stop(Stop.HOLD)
-                right.stop(Stop.HOLD)
-                gyro.reset_angle(0)
-                a = 0
+    while(True):
+        if(gyro.angle() > ang):
+            right.run(spd)
+            left.run(spd * -1)
+        if(gyro.angle() < ang):
             left.run(spd)
             right.run(spd * -1)
-            if(gyro.angle() > ang):
-                while(1):
-                    right.run(spd)
-                    left.run(spd * -1)
-                    if(gyro.angle() == ang):
-                        right.stop(Stop.HOLD)
-                        left.stop(Stop.HOLD)
-                        gyro.reset_angle(0)
-                        a = 0
-                    if(gyro.angle() < ang):
-                        break
-                
-    if(ang < 0):
-        while(a == 1):
-            if(gyro.angle == ang):
-                left.stop(Stop.HOLD)
-                right.stop(Stop.HOLD)
+        if(gyro.angle() == ang):
+            left.stop(Stop.HOLD)
+            right.stop(Stop.HOLD)
+            time.sleep(0.5)
+            if(gyro.angle() == ang):
+                data.write(str(gyro.angle()) + "\n")
                 gyro.reset_angle(0)
-                a = 0
-            left.run(spd * -1)
-            right.run(spd)
-            if(gyro.angle() < ang):
-                while(1):
-                    right.run(spd * -1)
-                    left.run(spd)
-                    if(gyro.angle() == ang):
-                        right.stop(Stop.HOLD)
-                        left.stop(Stop.HOLD)
-                        gyro.reset_angle(0)
-                        a = 0
-                    if(gyro.angle() > ang):
-                        break
-    data.write(str(gyro.angle()) + "\n")
+                break
+            else:
+                pass
+
+x = 2
+n = 1
+sp = 40
+for i in range(x):
+    n = 0 - n
+    rot(sp, 0 * n)
 
 n = 1
-for i in range(20):
+for i in range(x):
     n = 0 - n
-    rot(80, 0 * n)
+    rot(sp, 10 * n)
 
 n = 1
-for i in range(20):
+for i in range(x):
     n = 0 - n
-    rot(80, 10 * n)
-
-rot(40, -10)
+    rot(sp, 20 * n)
 
 n = 1
-for i in range(20):
+for i in range(x):
     n = 0 - n
-    rot(80, 20 * n)
-
-rot(40, -20)
+    rot(sp, 40 * n)
 
 n = 1
-for i in range(20):
+for i in range(x):
     n = 0 - n
-    rot(80, 40 * n)
-
-rot(40, -40)
-
-n = 1
-for i in range(20):
-    n = 0 - n
-    rot(80, 80 * n)
-
-rot(40, -80)
-
-n = 1
-for i in range(20):
-    n = 0 - n
-    rot(80, 160 * n)
-
-rot(40, -160)
-
-n = 1
-for i in range(20):
-    n = 0 - n
-    rot(80, 320 * n)
-
-rot(40, -320)
-
-n = 1
-for i in range(20):
-    n = 0 - n
-    rot(80, 640 * n)
-
-rot(40, -640)
-
-
-
+    rot(sp, 80 * n)
