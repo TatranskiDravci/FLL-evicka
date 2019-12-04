@@ -7,6 +7,8 @@
 ├── pyhon
 │   ├── evicka.py
 │   └── main.py
+├── utils
+│   └── 'any utilities for measurenment or testing'
 ├── 'language name'
 │   ├── evicka.x  program containing functions
 │   ├── pathn.x   program containing path or
@@ -31,7 +33,7 @@ Structure:
 #### This module contains:
   * `recal()` - recalibrates gyroscope
   * `reset()` - resets angle of gyroscope and motors
-  * `mov(speed, time)` - moves robot for *time* seconds in *speed* speed, uses gyroscope
+  * `mov(speed, time, subtract)` - moves robot for *time* seconds in *speed* speed, uses gyroscope, when breaking, subtracts *subtract* ammount from speed to create effect of smooth breaking
   * `rot(speed, angle)` - rotates robot to *angle* degrees and in *speed* speed, uses gyroscope
   * `stick(speed, angle)` - moves *stick module* to desired height using *angle* degrees and *speed* speed
   * `claw(speed, angle)` - opens or closes *claw module* using *angle* degrees and *speed* speed
