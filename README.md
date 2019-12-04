@@ -33,9 +33,11 @@ Structure:
 #### This module contains:
   * `recal()` - recalibrates gyroscope
   * `reset()` - resets angle of gyroscope and motors
-  * `mov(speed, time, subtract)` - moves robot for *time* seconds in *speed* speed, uses gyroscope, when breaking, subtracts *subtract* ammount from speed to create effect of smooth breaking
+  * `movf(speed, distance)` - moves robot forwards in *speed* speed to *distance* average angle of motors, uses gyroscope
+  * `movb(speed, distance)` - moves robot backwards in *speed* speed to *distance* average angle of motors, uses gyroscope
   * `rot(speed, angle)` - rotates robot to *angle* degrees and in *speed* speed, uses gyroscope
-  * `stick(speed, angle)` - moves *stick module* to desired height using *angle* degrees and *speed* speed
+  * `stickL(speed, angle)` - moves *left stick module* to desired height using *angle* degrees and *speed* speed
+  * `stickR(speed, angle)` - moves *right stick module* to desired height using *angle* degrees and *speed* speed
   * `claw(speed, angle)` - opens or closes *claw module* using *angle* degrees and *speed* speed
   
 #### Where to connect sensors and motors?
