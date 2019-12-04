@@ -19,37 +19,33 @@ while(1):
         switch = 4
     
     if(switch == 1):
+        #Path 2
         reset()
         recal()
-        rot(50, -15)
-        mov(300, 4)
-        rot(40, -13)
-        mov(300, 1.7)
-        mov(-80, 1)
-        rot(50, 15)
-        mov(-80, 1)
-        rot(50, 20)
-        mov(-80, 1)
-        rot(50, 40)
-        mov(80, 1)
-        rot(60, 170)
-        mov(80, 2.8)
-        claw(200, 200)
-        mov(-80, 3)
-        claw(200, 10)
-        rot(80, 75)
-        mov(300, 4)
+        # H --> acc1 (p1)
+        rot(130, -16)
+        movf(200, 2726)
+        # acc1 --> p2
+        rot(100, -7)
+        movf(200, 1923)
+        # p2 --> out
+        movb(100, 660)
+        rot(80, -110)
+        movf(100, 480)
+        claw(200, 150)
+        movb(100, 500)
+        claw(200, -150)
+        rot(120, -65)
+        movf(300, 3500)
 
     if(switch == 2):
         reset()
-        mov_n(200, 1.5)
-        rot(80, 90)
-        mov_n(200, 1.5)
+        movb(100, 500)
 
     if(switch == 3):
-        reset()
         pass
+
     if(switch == 4):
-        reset()
         pass
+    
     switch = 0

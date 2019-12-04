@@ -27,13 +27,20 @@ def reset():
     gyro.reset_angle(0)
 
 def rot(spd=40, ang=0):
+    b = 0
     while(True):
-        if(gyro.angle() > ang):
+        if(gyro.angle() > ang and b == 0): 
             right.run(spd)
             left.run(spd * -1)
-        if(gyro.angle() < ang):
+        if(gyro.angle() < ang and b == 0):
             left.run(spd)
             right.run(spd * -1)
+        if(gyro.angle() > ang and b == 1): 
+            right.run(40)
+            left.run(-40)
+        if(gyro.angle() < ang and b == 1):
+            left.run(40)
+            right.run(-40)
         if(gyro.angle() == ang):
             left.stop(Stop.HOLD)
             right.stop(Stop.HOLD)
@@ -41,33 +48,49 @@ def rot(spd=40, ang=0):
             if(gyro.angle() == ang):
                 gyro.reset_angle(0)
                 break
+            if(gyro.angle() != ang):
+                b = 1
 
-def stick(spd=200, ang=0):
+def stickL(spd=200, ang=0):
     sLeft.run_target(spd, ang * -1, Stop.BRAKE)
     sLeft.stop()
+    sLeft.reset_angle(0)
+
+def stickR(spd=200, ang=0):
+    sRight.run_target(spd, ang * -1, Stop.BRAKE)
+    sRight.stop()
+    sRight.reset_angle(0)
 
 def claw(spd=200, ang=0):
     sRight.run_target(spd, ang, Stop.BRAKE)
     sLeft.run_target(spd, ang * -1, Stop.BRAKE)
     sRight.stop()
     sLeft.stop()
+    sLeft.reset_angle(0)
+    sRight.reset_angle(0)
 
-def mov(spd=40, tm=1, amm=20):
-    watch.resume()
-    watch.reset()
+def movf(spd=40, ang=360):
     while(1):
-        robot.drive(spd, gyro.angle() * -1)
-        if(watch.time() >= tm*1000):
-            a = spd
-            if(amm <= 0):
-                break
-            while(a != 0):
-                a = a - amm
-                if(a < 0):
-                    break
-                robot.drive(a, gyro.angle() * -1)
+        if(((left.angle() + right.angle())/2) < ang and ((left.angle() + right.angle())/2) < (ang - 120)):
+            robot.drive(spd, gyro.angle() * -1)
+        if(((left.angle() + right.angle())/2) < ang and ((left.angle() + right.angle())/2) >= (ang - 120)):
+            robot.drive(spd/2, gyro.angle() * -1)
+        if(((left.angle() + right.angle())/2) >= ang):
+            robot.stop(Stop.BRAKE)
             break
     robot.stop()
-    watch.pause()
-    rot(20, 0)
+    rot(25, 0)
+    reset()
+        
+def movb(spd=40, ang=360):
+    while(1):
+        if(((left.angle() + right.angle())/2) > -ang and ((left.angle() + right.angle())/2) > (-ang + 120)):
+            robot.drive(-spd, gyro.angle() * -1)
+        if(((left.angle() + right.angle())/2) > -ang and ((left.angle() + right.angle())/2) <= (-ang + 120)):
+                robot.drive((spd/2)*-1, gyro.angle() * -1)
+        if(((left.angle() + right.angle())/2) <= -ang):
+            robot.stop(Stop.BRAKE)
+            break
+    robot.stop()
+    rot(25, 0)
     reset()
