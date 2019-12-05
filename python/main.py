@@ -40,7 +40,9 @@ while(1):
 
     if(switch == 2):
         reset()
-        movb(100, 500)
+        movf(320, 1200)
+        wait(1000)
+        movb(150, 1000)
 
     if(switch == 3):
         pass

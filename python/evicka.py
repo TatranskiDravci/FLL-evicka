@@ -74,7 +74,10 @@ def movf(spd=40, ang=360):
         if(((left.angle() + right.angle())/2) < ang and ((left.angle() + right.angle())/2) < (ang - 120)):
             robot.drive(spd, gyro.angle() * -1)
         if(((left.angle() + right.angle())/2) < ang and ((left.angle() + right.angle())/2) >= (ang - 120)):
-            robot.drive(spd/2, gyro.angle() * -1)
+            if(((left.angle() + right.angle())/2) >= (ang - 60)):
+                robot.drive(spd/2, gyro.angle() * -1)
+            else:
+                robot.drive(spd/(3/2), gyro.angle() * -1)
         if(((left.angle() + right.angle())/2) >= ang):
             robot.stop(Stop.BRAKE)
             break
@@ -87,7 +90,10 @@ def movb(spd=40, ang=360):
         if(((left.angle() + right.angle())/2) > -ang and ((left.angle() + right.angle())/2) > (-ang + 120)):
             robot.drive(-spd, gyro.angle() * -1)
         if(((left.angle() + right.angle())/2) > -ang and ((left.angle() + right.angle())/2) <= (-ang + 120)):
+            if(((left.angle() + right.angle())/2) <= (-ang + 60)):
                 robot.drive((spd/2)*-1, gyro.angle() * -1)
+            else:
+                robot.drive((spd/(3/2))*-1, gyro.angle() * -1)
         if(((left.angle() + right.angle())/2) <= -ang):
             robot.stop(Stop.BRAKE)
             break
