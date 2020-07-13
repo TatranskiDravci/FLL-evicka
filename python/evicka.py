@@ -7,8 +7,6 @@ import time
 
 left = Motor(Port.B)
 right = Motor(Port.C)
-sLeft = Motor(Port.D)
-sRight = Motor(Port.A)
 gyro = GyroSensor(Port.S1)
 gyro.reset_angle(0)
 robot = DriveBase(left, right, 44, 180)
@@ -21,53 +19,51 @@ def recal():
 
 def reset():
     left.reset_angle(0)
-    right.reset_angle(0)
-    sLeft.reset_angle(0)
-    sRight.reset_angle(0)
     gyro.reset_angle(0)
 
-def rot(spd=40, ang=0):
-    b = 0
+def rot(max=40, ang=0):
+    # drive backwards
+    backwards = False
+    # base speed
+    base = 20
+    # start with base speed
+    spd = base
+    diff = max / base
+
+    # rotation loop
     while(True):
-        if(gyro.angle() > ang and b == 0): 
-            right.run(spd)
-            left.run(spd * -1)
-        if(gyro.angle() < ang and b == 0):
-            left.run(spd)
-            right.run(spd * -1)
-        if(gyro.angle() > ang and b == 1): 
-            right.run(40)
-            left.run(-40)
-        if(gyro.angle() < ang and b == 1):
-            left.run(40)
-            right.run(-40)
-        if(gyro.angle() == ang):
+        # gradual speedup and slowdown
+        if(ang - 3 < gyro.angle() > 3 and spd < max):
+            spd = spd + diff
+        elif(ang - 3 > gyro.angle() or gyro.angle() < 3 and spd > base):
+            spd = spd - diff
+
+        # check if measured angle equals desired angle
+        if(gyro.angle() != ang):
+            if(backwards == False):
+                if(gyro.angle() > ang):
+                    right.run(spd)
+                    left.run(spd * -1)
+                else:
+                    left.run(spd)
+                    right.run(spd * -1)
+            else:
+                if(gyro.angle() > ang):
+                    right.run(spd)
+                    left.run(spd * -1)
+                else:
+                    left.run(spd)
+                    right.run(spd * -1)
+        # stop robot and do a final angle check
+        else:
             left.stop(Stop.HOLD)
             right.stop(Stop.HOLD)
             time.sleep(0.5)
             if(gyro.angle() == ang):
                 gyro.reset_angle(0)
                 break
-            if(gyro.angle() != ang):
-                b = 1
-
-def stickL(spd=200, ang=0):
-    sLeft.run_target(spd, ang * -1, Stop.BRAKE)
-    sLeft.stop()
-    sLeft.reset_angle(0)
-
-def stickR(spd=200, ang=0):
-    sRight.run_target(spd, ang * -1, Stop.BRAKE)
-    sRight.stop()
-    sRight.reset_angle(0)
-
-def claw(spd=200, ang=0):
-    sRight.run_target(spd, ang, Stop.BRAKE)
-    sLeft.run_target(spd, ang * -1, Stop.BRAKE)
-    sRight.stop()
-    sLeft.stop()
-    sLeft.reset_angle(0)
-    sRight.reset_angle(0)
+            else:
+                backwards = True
 
 def movf(spd=40, ang=360):
     while(1):
@@ -84,7 +80,7 @@ def movf(spd=40, ang=360):
     robot.stop()
     rot(25, 0)
     reset()
-        
+
 def movb(spd=40, ang=360):
     while(1):
         if(((left.angle() + right.angle())/2) > -ang and ((left.angle() + right.angle())/2) > (-ang + 120)):
